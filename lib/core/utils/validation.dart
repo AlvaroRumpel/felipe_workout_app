@@ -38,10 +38,33 @@ class Password extends Validation {
 
   @override
   String? validate(String? value) {
-    if (value != null &&
-        !RegExp(r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^\da-zA-Z]).{8,}$')
-            .hasMatch(value)) {
+    if (value == null) {
       return message;
+    }
+
+    // Verifica se a senha tem pelo menos 8 caracteres
+    if (value.length < 8) {
+      return 'A senha deve ter pelo menos 8 caracteres.';
+    }
+
+    // Verifica a presença de pelo menos uma letra minúscula
+    if (!RegExp(r'(?=.*[a-z])').hasMatch(value)) {
+      return 'A senha deve conter pelo menos uma letra minúscula.';
+    }
+
+    // Verifica a presença de pelo menos uma letra maiúscula
+    if (!RegExp(r'(?=.*[A-Z])').hasMatch(value)) {
+      return 'A senha deve conter pelo menos uma letra maiúscula.';
+    }
+
+    // Verifica a presença de pelo menos um dígito
+    if (!RegExp(r'(?=.*\d)').hasMatch(value)) {
+      return 'A senha deve conter pelo menos um dígito.';
+    }
+
+    // Verifica a presença de pelo menos um caractere especial
+    if (!RegExp(r'(?=.*[^\da-zA-Z])').hasMatch(value)) {
+      return 'A senha deve conter pelo menos um caractere especial.';
     }
 
     return null;

@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "465884846696",
+    "project_id": "felipe-workout-app-test",
+    "storage_bucket": "felipe-workout-app-test.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:465884846696:android:cb7f60af7e628da58f79dd",
+        "android_client_info": {
+          "package_name": "br.com.acr.felipe_workout_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA5oYGl0-ICT6_tN51O04ld2I4DPLyjUFk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

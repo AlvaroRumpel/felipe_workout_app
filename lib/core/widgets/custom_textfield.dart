@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
-import '../utils/validations.dart';
+import '../utils/validation.dart';
 
 class CustomTextField extends StatefulWidget {
   const CustomTextField({
@@ -11,6 +12,7 @@ class CustomTextField extends StatefulWidget {
     required this.labelText,
     this.validators,
     this.prefixIcon,
+    this.inputFormatters,
   });
 
   final TextEditingController controller;
@@ -19,6 +21,7 @@ class CustomTextField extends StatefulWidget {
   final String hintText;
   final IconData? prefixIcon;
   final List<Validation>? validators;
+  final List<TextInputFormatter>? inputFormatters;
 
   @override
   State<CustomTextField> createState() => _CustomTextFieldState();
@@ -58,6 +61,8 @@ class _CustomTextFieldState extends State<CustomTextField> {
       ),
       obscureText: _isObscure,
       validator: widget.validators?.validate,
+      autovalidateMode: AutovalidateMode.onUserInteraction,
+      inputFormatters: widget.inputFormatters,
     );
   }
 }

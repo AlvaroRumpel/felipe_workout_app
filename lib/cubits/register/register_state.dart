@@ -1,18 +1,18 @@
-part of 'login_cubit.dart';
+part of 'register_cubit.dart';
 
 @immutable
-sealed class LoginState {
+sealed class RegisterState {
   T when<T>({
     required T Function() initial,
     required T Function() loading,
     required T Function(String message) error,
   }) {
-    if (this is LoginInitial) {
+    if (this is RegisterInitial) {
       return initial();
-    } else if (this is LoginLoading) {
+    } else if (this is RegisterLoading) {
       return loading();
-    } else if (this is LoginError) {
-      return error((this as LoginError).message);
+    } else if (this is RegisterError) {
+      return error((this as RegisterError).message);
     }
     throw Exception('Unreachable');
   }
@@ -23,12 +23,12 @@ sealed class LoginState {
     T Function(String message)? error,
     required T? Function() orElse,
   }) {
-    if (this is LoginInitial && initial != null) {
+    if (this is RegisterInitial && initial != null) {
       return initial();
-    } else if (this is LoginLoading && loading != null) {
+    } else if (this is RegisterLoading && loading != null) {
       return loading();
-    } else if (this is LoginError && error != null) {
-      return error((this as LoginError).message);
+    } else if (this is RegisterError && error != null) {
+      return error((this as RegisterError).message);
     } else {
       return orElse();
     }
@@ -48,12 +48,12 @@ sealed class LoginState {
   }
 }
 
-final class LoginInitial extends LoginState {}
+final class RegisterInitial extends RegisterState {}
 
-final class LoginLoading extends LoginState {}
+final class RegisterLoading extends RegisterState {}
 
-final class LoginError extends LoginState {
+final class RegisterError extends RegisterState {
   final String message;
 
-  LoginError({required this.message});
+  RegisterError({required this.message});
 }

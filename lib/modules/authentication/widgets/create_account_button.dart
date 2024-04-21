@@ -1,24 +1,19 @@
 import 'package:flutter/material.dart';
 
-import '../extensions/extensions.dart';
+import '../../../core/extensions/extensions.dart';
+import '../../../core/routes/routes.dart';
 
-class CustomTextButton extends StatelessWidget {
-  final VoidCallback onPressed;
-  final String text;
-
-  const CustomTextButton({
-    super.key,
-    required this.onPressed,
-    required this.text,
-  });
+class CreateAccountButton extends StatelessWidget {
+  const CreateAccountButton({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Material(
       shape: const StadiumBorder(),
       clipBehavior: Clip.hardEdge,
+      color: context.themeState.colors.surfaceContainerLow,
       child: InkWell(
-        onTap: onPressed,
+        onTap: () => Navigator.pushNamed(context, REGISTER),
         child: Container(
           width: context.width,
           alignment: Alignment.center,
@@ -27,7 +22,7 @@ class CustomTextButton extends StatelessWidget {
             horizontal: 16,
           ),
           child: Text(
-            text,
+            'Criar uma conta aqui',
             style: context.textHierarchy.body1.copyWith(
               color: context.colors.primary,
             ),

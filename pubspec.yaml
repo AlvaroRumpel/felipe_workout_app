@@ -39,6 +39,9 @@ dependencies:
   block_input: ^1.2.7
   flutter_bloc: ^8.1.5
   bloc: ^8.1.4
+  animations: ^2.0.11
+  firebase_auth: ^4.19.2
+  firebase_core: ^2.30.0
 
 dev_dependencies:
   flutter_test:
