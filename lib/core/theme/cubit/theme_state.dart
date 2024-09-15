@@ -19,27 +19,50 @@ sealed class ThemeState {
   });
 }
 
-final class ThemeInitial extends ThemeState {
-  const ThemeInitial({
+final class ThemeDark extends ThemeState {
+  const ThemeDark({
     required super.themeData,
-    required super.brightness,
     required super.borderRadius,
     required super.spacing,
     required super.textHierarchy,
     required super.colors,
-  });
+  }) : super(brightness: Brightness.dark);
 
-  ThemeInitial copyWith({
+  ThemeDark copyWith({
     ThemeData? themeData,
-    Brightness? brightness,
     CustomBorderRadius? borderRadius,
     Spacing? spacing,
     TextHierarchy? textHierarchy,
     CustomColors? colors,
   }) {
-    return ThemeInitial(
+    return ThemeDark(
       themeData: themeData ?? this.themeData,
-      brightness: brightness ?? this.brightness,
+      borderRadius: borderRadius ?? this.borderRadius,
+      spacing: spacing ?? this.spacing,
+      textHierarchy: textHierarchy ?? this.textHierarchy,
+      colors: colors ?? this.colors,
+    );
+  }
+}
+
+final class ThemeLight extends ThemeState {
+  const ThemeLight({
+    required super.themeData,
+    required super.borderRadius,
+    required super.spacing,
+    required super.textHierarchy,
+    required super.colors,
+  }) : super(brightness: Brightness.dark);
+
+  ThemeLight copyWith({
+    ThemeData? themeData,
+    CustomBorderRadius? borderRadius,
+    Spacing? spacing,
+    TextHierarchy? textHierarchy,
+    CustomColors? colors,
+  }) {
+    return ThemeLight(
+      themeData: themeData ?? this.themeData,
       borderRadius: borderRadius ?? this.borderRadius,
       spacing: spacing ?? this.spacing,
       textHierarchy: textHierarchy ?? this.textHierarchy,

@@ -20,6 +20,7 @@ sealed class RegisterState {
   T? maybeWhen<T>({
     T Function()? initial,
     T Function()? loading,
+    T Function()? logged,
     T Function(String message)? error,
     required T? Function() orElse,
   }) {
@@ -27,6 +28,8 @@ sealed class RegisterState {
       return initial();
     } else if (this is RegisterLoading && loading != null) {
       return loading();
+    } else if (this is RegisterLogged && logged != null) {
+      return logged();
     } else if (this is RegisterError && error != null) {
       return error((this as RegisterError).message);
     } else {
@@ -49,6 +52,8 @@ sealed class RegisterState {
 }
 
 final class RegisterInitial extends RegisterState {}
+
+final class RegisterLogged extends RegisterState {}
 
 final class RegisterLoading extends RegisterState {}
 

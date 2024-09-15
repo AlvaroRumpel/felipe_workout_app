@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../core/extensions/extensions.dart';
+import '../../../core/routes/routes.dart';
 import '../../../core/utils/mixins/mixin.dart';
 import '../../../core/utils/validation.dart';
 import '../../../core/widgets/widgets.dart';
-import '../../../cubits/register/register_cubit.dart';
+import '../cubit/register/register_cubit.dart';
 import '../widgets/logo_scaffold.dart';
 
 class RegisterPage extends StatefulWidget {
@@ -45,6 +46,10 @@ class _RegisterPageState extends State<RegisterPage>
                   hideLoading();
                 },
                 loading: () => showLoading(context),
+                logged: () {
+                  hideLoading();
+                  Navigator.pushReplacementNamed(context, HOME);
+                },
                 orElse: () => hideLoading(),
               );
             },
@@ -60,6 +65,7 @@ class _RegisterPageState extends State<RegisterPage>
                   labelText: 'E-mail',
                   hintText: 'Insira seu e-mail',
                   prefixIcon: Icons.email_outlined,
+                  keyboardType: TextInputType.emailAddress,
                   validators: [Required(), Email()],
                 ),
                 const CustomSpace.sp4(),
@@ -68,6 +74,7 @@ class _RegisterPageState extends State<RegisterPage>
                   labelText: 'Senha',
                   hintText: 'Insira sua senha',
                   prefixIcon: Icons.lock_outline,
+                  keyboardType: TextInputType.visiblePassword,
                   obscureText: true,
                   validators: [Required(), Password()],
                 ),
@@ -77,6 +84,7 @@ class _RegisterPageState extends State<RegisterPage>
                   labelText: 'Confirmar a senha',
                   hintText: 'Insira sua senha novamente',
                   prefixIcon: Icons.lock_outline,
+                  keyboardType: TextInputType.visiblePassword,
                   obscureText: true,
                   validators: [
                     Required(),

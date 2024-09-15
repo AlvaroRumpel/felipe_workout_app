@@ -1,7 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 
-import '../../repositories/auth_repository/auth_repository.dart';
+import '../../../../repositories/auth_repository/auth_repository.dart';
 
 part 'login_state.dart';
 
@@ -18,7 +18,7 @@ class LoginCubit extends Cubit<LoginState> {
 
       await _authRepository.signIn(email: email, password: password);
 
-      emit(LoginInitial());
+      emit(LoginLogged());
     } catch (e) {
       emit(LoginError(message: e.toString()));
     }

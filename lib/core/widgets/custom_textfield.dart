@@ -13,6 +13,7 @@ class CustomTextField extends StatefulWidget {
     this.validators,
     this.prefixIcon,
     this.inputFormatters,
+    this.keyboardType,
   });
 
   final TextEditingController controller;
@@ -22,6 +23,7 @@ class CustomTextField extends StatefulWidget {
   final IconData? prefixIcon;
   final List<Validation>? validators;
   final List<TextInputFormatter>? inputFormatters;
+  final TextInputType? keyboardType;
 
   @override
   State<CustomTextField> createState() => _CustomTextFieldState();
@@ -39,7 +41,9 @@ class _CustomTextFieldState extends State<CustomTextField> {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      onTapOutside: (_) => FocusScope.of(context).unfocus(),
       controller: widget.controller,
+      keyboardType: widget.keyboardType,
       decoration: InputDecoration(
         labelText: widget.labelText,
         hintText: widget.hintText,

@@ -88,3 +88,35 @@ class AuthException extends CustomException {
     super.error,
   });
 }
+
+class LocalStorageSaveException extends CustomException {
+  LocalStorageSaveException({
+    super.message = 'Não foi possível salvar!',
+    super.stackTrace,
+    super.error,
+  });
+}
+
+class LocalStorageGetException extends CustomException {
+  LocalStorageGetException({
+    super.message = 'Não foi possível buscar!',
+    super.stackTrace,
+    super.error,
+  });
+}
+
+class GoogleSheetSaveException extends CustomException {
+  GoogleSheetSaveException({
+    super.message = 'Não foi possível salvar!',
+    super.stackTrace,
+    super.error,
+  });
+}
+
+class GoogleSheetGetException extends CustomException {
+  GoogleSheetGetException({
+    super.message = 'Não foi possível buscar!',
+    super.stackTrace,
+    super.error,
+  });
+}

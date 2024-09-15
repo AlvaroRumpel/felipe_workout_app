@@ -11,7 +11,6 @@ ThemeData createTheme({
   return ThemeData(
     colorScheme: colorScheme,
     fontFamily: GoogleFonts.montserrat().fontFamily,
-    brightness: Brightness.dark,
     scaffoldBackgroundColor: colorScheme.surface,
     canvasColor: colorScheme.surface,
     pageTransitionsTheme: const PageTransitionsTheme(

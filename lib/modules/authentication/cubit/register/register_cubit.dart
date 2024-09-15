@@ -1,7 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 
-import '../../repositories/auth_repository/auth_repository.dart';
+import '../../../../repositories/auth_repository/auth_repository.dart';
 
 part 'register_state.dart';
 
@@ -21,7 +21,7 @@ class RegisterCubit extends Cubit<RegisterState> {
 
       await _authRepository.createAndSingIn(email: email, password: password);
 
-      emit(RegisterInitial());
+      emit(RegisterLogged());
     } catch (e) {
       emit(RegisterError(message: e.toString()));
     }

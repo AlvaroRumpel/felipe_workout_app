@@ -1,17 +1,16 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/date_symbol_data_local.dart';
 
+import 'core/routes/initial_bindings.dart';
 import 'core/routes/routes.dart';
 import 'core/theme/cubit/theme_cubit.dart';
-import 'cubits/auth/auth_cubit.dart';
-import 'repositories/auth_repository/auth_repository.dart';
-import 'services/auth_service/auth_service.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+  initializeDateFormatting('pt_BR', null);
   runApp(const FWApp());
 }
 
@@ -21,31 +20,9 @@ class FWApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiRepositoryProvider(
-      providers: [
-        RepositoryProvider<AuthService>(
-          create: (_) => AuthServiceImpl(firebaseAuth: FirebaseAuth.instance),
-        ),
-        RepositoryProvider<AuthRepository>(
-          create: (context) => AuthRepositoryImpl(
-            authService: RepositoryProvider.of<AuthService>(
-              context,
-              listen: false,
-            ),
-          ),
-        ),
-      ],
+      providers: repositoriesProviders,
       child: MultiBlocProvider(
-        providers: [
-          BlocProvider(
-            create: (context) => AuthCubit(
-              RepositoryProvider.of<AuthRepository>(
-                context,
-                listen: false,
-              ),
-            ),
-          ),
-          BlocProvider(create: (_) => ThemeCubit()),
-        ],
+        providers: blocProviders,
         child: BlocBuilder<ThemeCubit, ThemeState>(
           builder: (context, state) {
             return MaterialApp(

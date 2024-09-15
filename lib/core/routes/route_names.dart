@@ -5,3 +5,4 @@ const SPLASH = '/';
 const HOME = '/home';
 const LOGIN = '/login';
 const REGISTER = '/register';
+const SETTINGS = '/settings';

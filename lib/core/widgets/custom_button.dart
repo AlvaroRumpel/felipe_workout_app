@@ -5,29 +5,52 @@ import '../extensions/extensions.dart';
 class CustomButton extends StatelessWidget {
   final VoidCallback onPressed;
   final Widget child;
+  final Color? backgroundColor;
+  final Color? _iconColor;
+  final IconData? _icon;
 
   const CustomButton({
     super.key,
     required this.onPressed,
     required this.child,
-  }) : _type = _CustomButtonType.filled;
+    this.backgroundColor,
+    Color? iconColor,
+    IconData? icon,
+  })  : _type = _CustomButtonType.filled,
+        _icon = icon,
+        _iconColor = iconColor;
 
   const CustomButton.outlined({
     super.key,
     required this.onPressed,
     required this.child,
-  }) : _type = _CustomButtonType.outlined;
+    this.backgroundColor,
+    Color? iconColor,
+    IconData? icon,
+  })  : _type = _CustomButtonType.outlined,
+        _icon = icon,
+        _iconColor = iconColor;
 
   final _CustomButtonType _type;
 
   ButtonStyleButton get _button => switch (_type) {
-        _CustomButtonType.filled => ElevatedButton(
+        _CustomButtonType.filled => ElevatedButton.icon(
             onPressed: onPressed,
-            child: child,
+            style: ElevatedButton.styleFrom(
+              backgroundColor: backgroundColor,
+              iconColor: _iconColor,
+            ),
+            label: child,
+            icon: _icon != null ? Icon(_icon) : null,
           ),
-        _CustomButtonType.outlined => OutlinedButton(
+        _CustomButtonType.outlined => OutlinedButton.icon(
             onPressed: onPressed,
-            child: child,
+            style: ElevatedButton.styleFrom(
+              backgroundColor: backgroundColor,
+              iconColor: _iconColor,
+            ),
+            label: child,
+            icon: _icon != null ? Icon(_icon) : null,
           ),
       };
 

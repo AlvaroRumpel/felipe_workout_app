@@ -3,102 +3,155 @@ import 'package:flutter/material.dart';
 abstract class CustomColors {
   final Brightness brightness;
   final Color primary;
+  final Color surfaceTint;
   final Color onPrimary;
-  final Color? primaryContainer;
-  final Color? onPrimaryContainer;
+  final Color primaryContainer;
+  final Color onPrimaryContainer;
   final Color secondary;
   final Color onSecondary;
-  final Color? secondaryContainer;
-  final Color? onSecondaryContainer;
-  final Color? tertiary;
-  final Color? onTertiary;
-  final Color? tertiaryContainer;
-  final Color? onTertiaryContainer;
+  final Color secondaryContainer;
+  final Color onSecondaryContainer;
+  final Color tertiary;
+  final Color onTertiary;
+  final Color tertiaryContainer;
+  final Color onTertiaryContainer;
   final Color error;
   final Color onError;
-  final Color? errorContainer;
-  final Color? onErrorContainer;
+  final Color errorContainer;
+  final Color onErrorContainer;
   final Color background;
   final Color onBackground;
   final Color surface;
   final Color onSurface;
-  final Color? surfaceVariant;
-  final Color? onSurfaceVariant;
-  final Color? outline;
-  final Color? outlineVariant;
-  final Color? shadow;
-  final Color? scrim;
-  final Color? inverseSurface;
-  final Color? onInverseSurface;
-  final Color? inversePrimary;
-  final Color? surfaceTint;
-
+  final Color surfaceVariant;
+  final Color onSurfaceVariant;
+  final Color outline;
+  final Color outlineVariant;
+  final Color shadow;
+  final Color scrim;
+  final Color inverseSurface;
+  final Color inverseOnSurface;
+  final Color inversePrimary;
+  final Color primaryFixed;
+  final Color onPrimaryFixed;
+  final Color primaryFixedDim;
+  final Color onPrimaryFixedVariant;
+  final Color secondaryFixed;
+  final Color onSecondaryFixed;
+  final Color secondaryFixedDim;
+  final Color onSecondaryFixedVariant;
+  final Color tertiaryFixed;
+  final Color onTertiaryFixed;
+  final Color tertiaryFixedDim;
+  final Color onTertiaryFixedVariant;
+  final Color surfaceDim;
+  final Color surfaceBright;
+  final Color surfaceContainerLowest;
   final Color surfaceContainerLow;
+  final Color surfaceContainer;
+  final Color surfaceContainerHigh;
+  final Color surfaceContainerHighest;
 
   CustomColors({
     required this.brightness,
     required this.primary,
+    required this.surfaceTint,
     required this.onPrimary,
-    this.primaryContainer,
-    this.onPrimaryContainer,
+    required this.primaryContainer,
+    required this.onPrimaryContainer,
     required this.secondary,
     required this.onSecondary,
-    this.secondaryContainer,
-    this.onSecondaryContainer,
-    this.tertiary,
-    this.onTertiary,
-    this.tertiaryContainer,
-    this.onTertiaryContainer,
+    required this.secondaryContainer,
+    required this.onSecondaryContainer,
+    required this.tertiary,
+    required this.onTertiary,
+    required this.tertiaryContainer,
+    required this.onTertiaryContainer,
     required this.error,
     required this.onError,
-    this.errorContainer,
-    this.onErrorContainer,
+    required this.errorContainer,
+    required this.onErrorContainer,
     required this.background,
     required this.onBackground,
     required this.surface,
     required this.onSurface,
-    this.surfaceVariant,
-    this.onSurfaceVariant,
-    this.outline,
-    this.outlineVariant,
-    this.shadow,
-    this.scrim,
-    this.inverseSurface,
-    this.onInverseSurface,
-    this.inversePrimary,
-    this.surfaceTint,
+    required this.surfaceVariant,
+    required this.onSurfaceVariant,
+    required this.outline,
+    required this.outlineVariant,
+    required this.shadow,
+    required this.scrim,
+    required this.inverseSurface,
+    required this.inverseOnSurface,
+    required this.inversePrimary,
+    required this.primaryFixed,
+    required this.onPrimaryFixed,
+    required this.primaryFixedDim,
+    required this.onPrimaryFixedVariant,
+    required this.secondaryFixed,
+    required this.onSecondaryFixed,
+    required this.secondaryFixedDim,
+    required this.onSecondaryFixedVariant,
+    required this.tertiaryFixed,
+    required this.onTertiaryFixed,
+    required this.tertiaryFixedDim,
+    required this.onTertiaryFixedVariant,
+    required this.surfaceDim,
+    required this.surfaceBright,
+    required this.surfaceContainerLowest,
     required this.surfaceContainerLow,
+    required this.surfaceContainer,
+    required this.surfaceContainerHigh,
+    required this.surfaceContainerHighest,
   });
 
   ColorScheme get colorScheme => ColorScheme(
         brightness: brightness,
-        primary: primary,
-        onPrimary: onPrimary,
-        primaryContainer: primaryContainer ?? Colors.transparent,
-        onPrimaryContainer: onPrimaryContainer ?? Colors.transparent,
-        secondary: secondary,
-        onSecondary: onSecondary,
-        secondaryContainer: secondaryContainer ?? Colors.transparent,
-        onSecondaryContainer: onSecondaryContainer ?? Colors.transparent,
-        tertiary: tertiary ?? Colors.transparent,
-        onTertiary: onTertiary ?? Colors.transparent,
-        tertiaryContainer: tertiaryContainer ?? Colors.transparent,
-        onTertiaryContainer: onTertiaryContainer ?? Colors.transparent,
         error: error,
+        errorContainer: errorContainer,
+        inversePrimary: inversePrimary,
+        inverseSurface: inverseSurface,
         onError: onError,
-        errorContainer: errorContainer ?? Colors.transparent,
-        onErrorContainer: onErrorContainer ?? Colors.transparent,
-        background: background,
-        onBackground: onBackground,
-        surface: surface,
+        onErrorContainer: onErrorContainer,
+        onInverseSurface: inverseOnSurface,
+        onPrimary: onPrimary,
+        onPrimaryContainer: onPrimaryContainer,
+        onPrimaryFixed: onPrimaryFixed,
+        onPrimaryFixedVariant: onPrimaryFixedVariant,
+        onSecondary: onSecondary,
+        onSecondaryContainer: onSecondaryContainer,
+        onSecondaryFixed: onSecondaryFixed,
+        onSecondaryFixedVariant: onSecondaryFixedVariant,
         onSurface: onSurface,
-        surfaceVariant: surfaceVariant ?? Colors.transparent,
-        onSurfaceVariant: onSurfaceVariant ?? Colors.transparent,
-        outline: outline ?? Colors.transparent,
-        shadow: shadow ?? Colors.transparent,
-        inverseSurface: inverseSurface ?? Colors.transparent,
-        onInverseSurface: onInverseSurface ?? Colors.transparent,
-        inversePrimary: inversePrimary ?? Colors.transparent,
-        surfaceTint: surfaceTint ?? primary,
+        onSurfaceVariant: onSurfaceVariant,
+        onTertiary: onTertiary,
+        onTertiaryContainer: onTertiaryContainer,
+        onTertiaryFixed: onTertiaryFixed,
+        onTertiaryFixedVariant: onTertiaryFixedVariant,
+        outline: outline,
+        outlineVariant: outlineVariant,
+        primary: primary,
+        primaryContainer: primaryContainer,
+        primaryFixed: primaryFixed,
+        primaryFixedDim: primaryFixedDim,
+        scrim: scrim,
+        secondary: secondary,
+        secondaryContainer: secondaryContainer,
+        secondaryFixed: secondaryFixed,
+        secondaryFixedDim: secondaryFixedDim,
+        shadow: shadow,
+        surface: surface,
+        surfaceBright: surfaceBright,
+        surfaceContainer: surfaceContainer,
+        surfaceContainerHigh: surfaceContainerHigh,
+        surfaceContainerHighest: surfaceVariant,
+        surfaceContainerLow: surfaceContainerLow,
+        surfaceContainerLowest: surfaceContainerLowest,
+        surfaceDim: surfaceDim,
+        surfaceTint: surfaceTint,
+        tertiary: tertiary,
+        tertiaryContainer: tertiaryContainer,
+        tertiaryFixed: tertiaryFixed,
+        tertiaryFixedDim: tertiaryFixedDim,
       );
 }

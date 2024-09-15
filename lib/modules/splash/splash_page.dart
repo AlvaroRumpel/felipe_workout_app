@@ -1,10 +1,12 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../core/assets.dart';
 import '../../core/extensions/extensions.dart';
 import '../../core/routes/routes.dart';
-import '../../cubits/auth/auth_cubit.dart';
+import '../authentication/cubit/auth/auth_cubit.dart';
 
 class SplashPage extends StatefulWidget {
   const SplashPage({super.key});
@@ -15,10 +17,11 @@ class SplashPage extends StatefulWidget {
 
 class _SplashPageState extends State<SplashPage>
     with SingleTickerProviderStateMixin {
-  late AnimationController _animationController;
-  late Animation _positionAnimation;
-  late Animation _scaleAnimation;
+  late final AnimationController _animationController;
+  late final Animation _positionAnimation;
+  late final Animation _scaleAnimation;
   var _opacity = 0.0;
+  late final StreamSubscription<AuthState> authSubs;
 
   @override
   void initState() {
@@ -57,22 +60,31 @@ class _SplashPageState extends State<SplashPage>
     ).whenComplete(
       () => Future.delayed(
         Durations.extralong1,
-        () => _redirectToPage(context),
+        () => _redirectToPage(),
       ),
     );
   }
 
-  void _redirectToPage(BuildContext context) {
-    context.read<AuthCubit>().stream.listen(
+  void _redirectToPage() {
+    authSubs = context.read<AuthCubit>().stream.listen(
       (state) {
-        if (state is Authenticated) {
-          Navigator.pushReplacementNamed(context, HOME);
-          return;
-        } else if (state is Unauthenticated) {
-          Navigator.pushReplacementNamed(context, LOGIN);
+        if (mounted) {
+          if (state is Authenticated) {
+            Navigator.pushNamedAndRemoveUntil(context, HOME, (route) => false);
+            return;
+          }
+          if (state is Unauthenticated) {
+            Navigator.pushNamedAndRemoveUntil(context, LOGIN, (route) => false);
+          }
         }
       },
     );
+  }
+
+  @override
+  void dispose() {
+    authSubs.cancel();
+    super.dispose();
   }
 
   @override

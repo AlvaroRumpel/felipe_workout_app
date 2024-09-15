@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../core/extensions/extensions.dart';
+import '../../../core/routes/routes.dart';
 import '../../../core/utils/mixins/mixin.dart';
 import '../../../core/utils/validation.dart';
 import '../../../core/widgets/widgets.dart';
-import '../../../cubits/login/login_cubit.dart';
+import '../cubit/login/login_cubit.dart';
 import '../widgets/logo_scaffold.dart';
 
 class LoginPage extends StatefulWidget {
@@ -41,6 +42,10 @@ class _LoginPageState extends State<LoginPage> with MessageMixin, LoadingMixin {
                 hideLoading();
               },
               loading: () => showLoading(context),
+              logged: () {
+                hideLoading();
+                Navigator.pushReplacementNamed(context, HOME);
+              },
               orElse: () => hideLoading(),
             );
           },
@@ -55,6 +60,7 @@ class _LoginPageState extends State<LoginPage> with MessageMixin, LoadingMixin {
                 controller: _emailEC,
                 labelText: 'E-mail',
                 hintText: 'Insira seu e-mail',
+                keyboardType: TextInputType.emailAddress,
                 prefixIcon: Icons.email_outlined,
                 validators: [Required(), Email()],
               ),
@@ -64,6 +70,7 @@ class _LoginPageState extends State<LoginPage> with MessageMixin, LoadingMixin {
                 labelText: 'Senha',
                 hintText: 'Insira sua senha',
                 prefixIcon: Icons.lock_outline,
+                keyboardType: TextInputType.visiblePassword,
                 obscureText: true,
                 validators: [Required()],
               ),

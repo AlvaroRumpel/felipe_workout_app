@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 
+import '../../../repositories/settings_repository/settings_repository.dart';
 import '../colors/custom_colors.dart';
 import '../sizes/custom_border_radius.dart';
 import '../sizes/spacing.dart';
@@ -12,6 +13,8 @@ import '../theme_implementation/theme_implementation.dart';
 part 'theme_state.dart';
 
 class ThemeCubit extends Cubit<ThemeState> {
+  final SettingsRepository _settingRepository;
+
   static final TextHierarchy _textHierarchy = ThemeTextHierarchy();
   static final Spacing _spacing = ThemeSpacing();
   static final CustomBorderRadius _borderRadius = ThemeBorderRadius();
@@ -22,38 +25,87 @@ class ThemeCubit extends Cubit<ThemeState> {
     textHierarchy: _textHierarchy,
   );
 
-  ThemeCubit()
-      : super(
-          ThemeInitial(
+  ThemeCubit(SettingsRepository settingRepository)
+      : _settingRepository = settingRepository,
+        super(
+          ThemeDark(
             themeData: _themeData,
             colors: _themeColors,
-            brightness: Brightness.dark,
             borderRadius: _borderRadius,
             spacing: _spacing,
             textHierarchy: _textHierarchy,
           ),
-        );
+        ) {
+    _setTheme();
+  }
 
-  void toggleTheme() {
-    var newBrightness = state.brightness == Brightness.dark
-        ? Brightness.light
-        : Brightness.dark;
+  Future<void> _setTheme() async {
+    final brightness = await _settingRepository.getTheme();
 
-    _themeColors = state.brightness == Brightness.dark
+    _themeColors =
+        brightness == Brightness.light ? ThemeLightColors() : ThemeDarkColors();
+
+    _themeData = createTheme(
+      colorScheme: _themeColors.colorScheme,
+      textHierarchy: _textHierarchy,
+    );
+
+    if (brightness == Brightness.light) {
+      emit(
+        ThemeLight(
+          themeData: _themeData,
+          colors: _themeColors,
+          borderRadius: _borderRadius,
+          spacing: _spacing,
+          textHierarchy: _textHierarchy,
+        ),
+      );
+    } else {
+      emit(
+        ThemeDark(
+          themeData: _themeData,
+          colors: _themeColors,
+          borderRadius: _borderRadius,
+          spacing: _spacing,
+          textHierarchy: _textHierarchy,
+        ),
+      );
+    }
+
+    log('Theme toggled to: ${brightness.name}');
+  }
+
+  void toggleTheme(Brightness newBrightness) {
+    _themeColors = newBrightness == Brightness.light
         ? ThemeLightColors()
         : ThemeDarkColors();
 
-    _themeData = _themeData.copyWith(
+    _themeData = createTheme(
       colorScheme: _themeColors.colorScheme,
-      brightness: newBrightness,
+      textHierarchy: _textHierarchy,
     );
 
-    emit(
-      (state as ThemeInitial).copyWith(
-        themeData: _themeData,
-        brightness: newBrightness,
-      ),
-    );
+    if (newBrightness == Brightness.light) {
+      emit(
+        ThemeLight(
+          themeData: _themeData,
+          colors: _themeColors,
+          borderRadius: _borderRadius,
+          spacing: _spacing,
+          textHierarchy: _textHierarchy,
+        ),
+      );
+    } else {
+      emit(
+        ThemeDark(
+          themeData: _themeData,
+          colors: _themeColors,
+          borderRadius: _borderRadius,
+          spacing: _spacing,
+          textHierarchy: _textHierarchy,
+        ),
+      );
+    }
 
     log('Theme toggled to: ${newBrightness.name}');
   }
