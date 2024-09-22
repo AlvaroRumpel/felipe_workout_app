@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../modules/authentication/cubit/auth/auth_cubit.dart';
 import '../../modules/authentication/cubit/login/login_cubit.dart';
 import '../../modules/authentication/cubit/register/register_cubit.dart';
 import '../../modules/authentication/login/login_page.dart';
@@ -12,14 +13,24 @@ import '../../modules/settings/settings_page.dart';
 import '../../modules/splash/splash_page.dart';
 import '../../repositories/auth_repository/auth_repository.dart';
 import '../../repositories/settings_repository/settings_repository.dart';
+import '../../services/google_sheets/google_sheets_service.dart';
 
 part 'route_names.dart';
 
 final routes = <String, Widget Function(BuildContext)>{
   SPLASH: (_) => const SplashPage(),
-  HOME: (_) => BlocProvider(
-        create: (_) => HomeCubit(),
-        child: const HomePage(),
+  HOME: (_) => RepositoryProvider<GoogleSheetsService>(
+        create: (context) => GoogleSheetsServiceImpl(
+          email:
+              (context.read<AuthCubit>().state as Authenticated).user.email ??
+                  '',
+        ),
+        child: BlocProvider(
+          create: (context) => HomeCubit(
+            googleSheetsService: context.read<GoogleSheetsService>(),
+          ),
+          child: const HomePage(),
+        ),
       ),
   LOGIN: (_) => BlocProvider(
         create: (context) => LoginCubit(context.read<AuthRepository>()),

@@ -38,6 +38,8 @@ ThemeData createTheme({
         textStyle: textHierarchy.body1,
       ),
     ),
-    useMaterial3: true,
+    appBarTheme: const AppBarTheme(
+      scrolledUnderElevation: 0.0,
+    ),
   );
 }

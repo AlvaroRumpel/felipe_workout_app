@@ -8,30 +8,21 @@
       "name": "felipe_workout_app",
       "request": "launch",
       "type": "dart",
-      "args": [
-        "--dart-define",
-        "API_URL=https://script.google.com/macros/s/AKfycbyRpRhCfcTTQq4jrp0eR3POBa4ZEkoZfz4BsutDBnKDkSFtADEE0N_XtZJaSm-odVl2Sg/exec"
-      ]
+      "args": ["--dart-define", "API_URL=API_URL"]
     },
     {
       "name": "felipe_workout_app (profile mode)",
       "request": "launch",
       "type": "dart",
       "flutterMode": "profile",
-      "args": [
-        "--dart-define",
-        "API_URL=https://script.google.com/macros/s/AKfycbyRpRhCfcTTQq4jrp0eR3POBa4ZEkoZfz4BsutDBnKDkSFtADEE0N_XtZJaSm-odVl2Sg/exec"
-      ]
+      "args": ["--dart-define", "API_URL=API_URL"]
     },
     {
       "name": "felipe_workout_app (release mode)",
       "request": "launch",
       "type": "dart",
       "flutterMode": "release",
-      "args": [
-        "--dart-define",
-        "API_URL=https://script.google.com/macros/s/AKfycbyRpRhCfcTTQq4jrp0eR3POBa4ZEkoZfz4BsutDBnKDkSFtADEE0N_XtZJaSm-odVl2Sg/exec"
-      ]
+      "args": ["--dart-define", "API_URL=API_URL"]
     }
   ]
 }

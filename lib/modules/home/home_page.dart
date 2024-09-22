@@ -44,9 +44,7 @@ class HomePage extends StatelessWidget {
             ),
           ],
         ),
-        body: Container(
-          width: context.width,
-          height: context.height,
+        body: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 24),
           child: Column(
             children: [
@@ -57,15 +55,14 @@ class HomePage extends StatelessWidget {
                 ],
               ),
               const CustomSpace.sp4(),
-              BlocSelector<HomeCubit, HomeState, bool>(
-                selector: (state) {
-                  return state is HomeData;
-                },
+              BlocBuilder<HomeCubit, HomeState>(
                 builder: (context, state) {
-                  return Visibility(
-                    visible: state,
-                    replacement: const NoDataWidget(),
-                    child: const HasDataWidget(),
+                  return state.when(
+                    initial: () => const CustomInitial(),
+                    loading: () => const CustomLoading(),
+                    data: (workouts) => HasDataWidget(workouts: workouts),
+                    empty: () => const NoDataWidget(),
+                    error: (err) => Text(err),
                   );
                 },
               ),

@@ -3,15 +3,16 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 import '../../core/utils/exception.dart';
+import '../../models/exercise_model.dart';
 import '../../models/workout_model.dart';
 import 'google_sheets_service.dart';
 
 class GoogleSheetsServiceImpl implements GoogleSheetsService {
   final _baseUrl = const String.fromEnvironment('API_URL');
-  final String spreadSheetName;
+  final String email;
 
   GoogleSheetsServiceImpl({
-    required this.spreadSheetName,
+    required this.email,
   });
 
   @override
@@ -19,16 +20,30 @@ class GoogleSheetsServiceImpl implements GoogleSheetsService {
     try {
       final response = await http.get(
         Uri.parse(
-          '$_baseUrl?spreadsheetName=$spreadSheetName',
+          '$_baseUrl?email=$email',
         ),
       );
 
       final workouts = jsonDecode(response.body);
-      final workoutList = <WorkoutModel>[];
+      var workoutList = <WorkoutModel>[];
 
-      if (workouts is List) {
-        for (final workout in workouts) {
-          workoutList.add(WorkoutModel.fromMap(workout));
+      if (workouts is Map) {
+        for (final item in workouts.entries) {
+          final name = item.key;
+          final exerciseList = <ExerciseModel>[];
+
+          if (item.value is List) {
+            for (final exercise in item.value) {
+              final exerciseModel = ExerciseModel.fromMap(exercise);
+              exerciseList.add(exerciseModel);
+            }
+
+            if (item.value.isNotEmpty) {
+              workoutList.add(
+                WorkoutModel(name: name, exercises: exerciseList),
+              );
+            }
+          }
         }
       }
 
@@ -39,10 +54,10 @@ class GoogleSheetsServiceImpl implements GoogleSheetsService {
   }
 
   @override
-  Future<void> updateWorkouts(WorkoutModel workout) async {
+  Future<void> updateWorkouts(ExerciseModel workout) async {
     try {
       await http.post(
-        Uri.parse('$_baseUrl?spreadsheetName=$spreadSheetName'),
+        Uri.parse('$_baseUrl?email=$email'),
         headers: {'Content-Type': 'application/json'},
         body: workout.toJson(),
       );
